@@ -1,0 +1,13 @@
+node_modules/
+.nuxt/
+.output/
+.cache/
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+*.log
+.vitest/
+.data/
+.env
+.env.*
+!.env.example
+!.env.sample

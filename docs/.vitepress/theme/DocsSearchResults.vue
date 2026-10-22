@@ -1,0 +1,76 @@
+<script setup lang="ts">
+export type SearchHit = { id: string; title: string; titles: string[] }
+
+defineProps<{ id: string; hits: SearchHit[]; activeIndex: number; searched: boolean }>()
+const emit = defineEmits<{ select: [hit: SearchHit]; hover: [index: number] }>()
+</script>
+
+<template>
+  <ul
+    v-show="hits.length"
+    :id="id"
+    class="docs-search-results"
+    role="listbox"
+    aria-label="Search results"
+  >
+    <li
+      v-for="(hit, i) in hits"
+      :id="`${id}-${i}`"
+      :key="hit.id"
+      class="docs-search-result"
+      :class="{ 'is-active': i === activeIndex }"
+      role="option"
+      :aria-selected="i === activeIndex"
+      @mousedown.prevent
+      @click="emit('select', hit)"
+      @mousemove="emit('hover', i)"
+    >
+      <span v-if="hit.titles.length" class="docs-search-result__path">{{
+        hit.titles.join(' › ')
+      }}</span>
+      <span class="docs-search-result__title">{{ hit.title }}</span>
+    </li>
+  </ul>
+  <p class="docs-search-status" role="status">
+    <template v-if="searched">{{
+      hits.length ? `${hits.length} ${hits.length === 1 ? 'result' : 'results'}` : 'No results'
+    }}</template>
+  </p>
+</template>
+
+<style scoped>
+.docs-search-results {
+  max-height: min(60vh, 480px);
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.docs-search-result {
+  display: grid;
+  gap: 2px;
+  padding: 8px 12px;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+}
+
+.docs-search-result.is-active {
+  background: var(--color-surface);
+}
+
+.docs-search-result__path {
+  color: var(--color-muted);
+  font-size: 13px;
+}
+
+.docs-search-result__title {
+  font-weight: 600;
+}
+
+.docs-search-status {
+  margin: 8px 0 0;
+  color: var(--color-muted);
+  font-size: 14px;
+}
+</style>

@@ -1,0 +1,61 @@
+// Gives a component's own elements the baseline that base.css provides site-wide, so components
+// render the same whether or not the app loads base.css. In a scoped style, Vue puts the scope
+// attribute inside :where(), so the rules never reach the app's elements or slot content and
+// always lose to the component's own selectors. Unscoped styles pass `$scope`, a selector that
+// matches only the component's own elements.
+@mixin base($scope: '') {
+  $any: '*';
+  @if $scope != '' {
+    $any: $scope;
+  }
+
+  :where(#{$any}),
+  :where(#{$any})::before,
+  :where(#{$any})::after {
+    box-sizing: border-box;
+  }
+
+  :where(a#{$scope}) {
+    color: inherit;
+    text-underline-offset: 0.25em;
+  }
+
+  :where(button#{$scope}, input#{$scope}, select#{$scope}, textarea#{$scope}) {
+    font: inherit;
+  }
+
+  :where(button#{$scope}) {
+    color: inherit;
+  }
+
+  :where(img#{$scope}) {
+    max-width: 100%;
+    height: auto;
+  }
+
+  :where(#{$any}):focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-accent);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :where(#{$any}),
+    :where(#{$any})::before,
+    :where(#{$any})::after {
+      animation-duration: 0s !important;
+      transition-duration: 0s !important;
+    }
+  }
+}
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}

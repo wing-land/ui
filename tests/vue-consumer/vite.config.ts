@@ -1,0 +1,7 @@
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+export default defineConfig({
+  root: new URL('.', import.meta.url).pathname,
+  plugins: [vue()],
+  build: { outDir: '../../.cache/vue-consumer', emptyOutDir: true },
+})

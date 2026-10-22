@@ -1,0 +1,78 @@
+/* Design tokens only. Components need these; nothing here styles the app's own elements. */
+:root {
+  --color-canvas: #f5f5f3;
+  /* Inside of input boxes, a step brighter than the page so empty fields stand out. */
+  --color-field: #fcfcfb;
+  --color-text: #242426;
+  --color-muted: #66666a;
+  --color-line: #d5d5d3;
+  --color-surface: #e9e9e6;
+  --color-accent: #843b51;
+  --color-code-background: #f0ecee;
+  --color-code-foreground: #3b353d;
+  --color-code-comment: #70646f;
+  --color-on-accent: #f5f5f3;
+  --color-danger: #a12f36;
+  --color-danger-surface: #f6e4e3;
+  --color-success: #2f6b45;
+  --color-success-surface: #e3eee6;
+  --color-warning: #7a5a12;
+  --color-warning-surface: #f3ead6;
+  --color-info: #2f5f86;
+  --color-info-surface: #e2ebf3;
+  --font-body:
+    Inter, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Noto Sans CJK JP',
+    'Yu Gothic', Meiryo, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  --font-size-body: 16px;
+  --font-size-small: 14px;
+  --line-height-body: 1.8;
+  --width-prose: 40em;
+  --width-site: 1120px;
+  --gutter: clamp(20px, 4vw, 64px);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --control-min: 44px;
+  --control-dense: 32px;
+  --radius-control: 4px;
+  --radius-popover: 6px;
+  --shadow-popover: 0 6px 20px rgb(0 0 0 / 12%);
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 4px;
+  --duration-fast: 120ms;
+  --easing-standard: ease-out;
+  --z-sticky: 10;
+  --z-popover: 20;
+  --z-toast: 40;
+}
+/* Dark tokens apply only when the app opts in with the `dark` class or `data-theme="dark"`. */
+:root.dark,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-canvas: #19191b;
+  --color-field: #212124;
+  --color-text: #eeeef0;
+  --color-muted: #a6a6ae;
+  --color-line: #3e3e43;
+  --color-surface: #2c2c30;
+  --color-accent: #d48ba2;
+  --color-code-background: #242126;
+  --color-code-foreground: #ddd7db;
+  --color-code-comment: #a198a0;
+  --color-on-accent: #19191b;
+  --color-danger: #f0a091;
+  --color-danger-surface: #3a2426;
+  --color-success: #8fc4a0;
+  --color-success-surface: #213027;
+  --color-warning: #d9b56a;
+  --color-warning-surface: #352d1d;
+  --color-info: #93b8d8;
+  --color-info-surface: #1f2b36;
+}

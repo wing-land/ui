@@ -1,0 +1,53 @@
+{
+  "status": "accepted-initial",
+  "themes": {
+    "light": {
+      "background": "#F0ECEE",
+      "foreground": "#3B353D",
+      "comment": "#70646F",
+      "wine": "#843B51",
+      "type": "#6B5780",
+      "string": "#356B66",
+      "literal": "#7B6038",
+      "error": "#A12F36"
+    },
+    "dark": {
+      "background": "#242126",
+      "foreground": "#DDD7DB",
+      "comment": "#A198A0",
+      "wine": "#D48BA2",
+      "type": "#B5A4CD",
+      "string": "#91B7B1",
+      "literal": "#C6AC88",
+      "error": "#F0A091"
+    }
+  },
+  "roles": {
+    "keyword": "wine",
+    "tag": "wine",
+    "function": "foreground",
+    "variable": "foreground",
+    "property": "foreground",
+    "punctuation": "foreground",
+    "operator": "foreground",
+    "comment": "comment",
+    "type": "type",
+    "string": "string",
+    "number": "literal",
+    "boolean": "literal",
+    "error": "error"
+  },
+  "vimCandidates": {
+    "Statement": "keyword",
+    "PreProc": "keyword",
+    "Function": "function",
+    "Identifier": "variable",
+    "Delimiter": "punctuation",
+    "Comment": "comment",
+    "Type": "type",
+    "String": "string",
+    "Number": "number",
+    "Boolean": "boolean",
+    "DiagnosticError": "error"
+  }
+}

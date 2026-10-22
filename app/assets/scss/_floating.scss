@@ -1,0 +1,42 @@
+// Shared look for panels that float next to their trigger: popovers, menus and combobox lists.
+
+@mixin panel {
+  z-index: var(--z-popover);
+  max-width: min(320px, calc(100vw - 16px));
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-popover);
+  background: var(--color-canvas);
+  color: var(--color-text);
+  box-shadow: var(--shadow-popover);
+
+  &:focus-visible {
+    outline-offset: 2px;
+  }
+}
+
+// Rows in menus and lists; 32px is the dense height allowed for grouped controls.
+@mixin item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--control-dense);
+  padding: 4px 10px;
+  border-radius: var(--radius-control);
+  color: var(--color-text);
+  font-size: var(--font-size-small);
+  line-height: 1.5;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+
+  &[data-highlighted] {
+    background: var(--color-surface);
+  }
+
+  &[data-disabled] {
+    color: var(--color-muted);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}

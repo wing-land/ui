@@ -1,0 +1,147 @@
+/* Shared article typography. */
+.prose {
+  font-size: var(--font-size-body);
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+  line-break: strict;
+}
+.prose h1:not(:where(.ui-not-prose *)) {
+  margin: 0 0 16px;
+  font-size: 32px;
+  line-height: 1.5;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+.prose h2:not(:where(.ui-not-prose *)) {
+  margin: 48px 0 16px;
+  font-size: 24px;
+  line-height: 1.5;
+  font-weight: 600;
+}
+.prose h3:not(:where(.ui-not-prose *)) {
+  margin: 32px 0 12px;
+  font-size: 20px;
+  line-height: 1.5;
+  font-weight: 600;
+}
+.prose :is(h2, h3):not(:where(.ui-not-prose *)) {
+  scroll-margin-top: 24px;
+}
+.prose :is(h2, h3, h4, h5, h6) > a:not(:where(.ui-not-prose *)) {
+  text-decoration: none;
+  margin-inline: 0;
+}
+.prose p:not(:where(.ui-not-prose *)) {
+  margin: 0 0 1.5em;
+}
+.prose strong:not(:where(.ui-not-prose *)) {
+  font-weight: 600;
+}
+.prose a:not(:where(.ui-not-prose *)) {
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+.prose a:hover:not(:where(.ui-not-prose *)) {
+  color: var(--color-accent);
+}
+.prose :is(p, li, td) a:lang(ja):not(:where(.ui-not-prose *)) {
+  margin-inline: 0.125em;
+}
+.prose :is(ul, ol):not(:where(.ui-not-prose *)) {
+  padding-left: 1.5em;
+}
+.prose li:not(:where(.ui-not-prose *)) {
+  margin-block: 0.5em;
+}
+.prose code:not(:where(.ui-not-prose *)) {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+.prose :is(p, li, td) code:not(:where(.ui-not-prose *)) {
+  background: var(--color-surface);
+  padding: 0.1em 0.3em;
+}
+.prose blockquote:not(:where(.ui-not-prose *)) {
+  margin: 32px 0;
+  padding: 4px 0 4px 20px;
+  border-left: 2px solid var(--color-line);
+}
+.prose blockquote p:not(:where(.ui-not-prose *)) {
+  margin: 0;
+}
+.prose blockquote p + p:not(:where(.ui-not-prose *)) {
+  margin-top: 1.5em;
+}
+.prose .ui-note h3:not(:where(.ui-not-prose *)) {
+  margin: 0 0 12px;
+}
+.prose .ui-note p:not(:where(.ui-not-prose *)) {
+  margin: 0;
+}
+.prose figure:not(:where(.ui-not-prose *)) {
+  margin: 40px 0;
+}
+.prose img:not(:where(.ui-not-prose *)) {
+  max-width: 100%;
+  height: auto;
+}
+/* Images that open in a lightbox fill the text width; other images keep their own size. */
+.prose .ui-image-lightbox img:not(:where(.ui-not-prose *)) {
+  display: block;
+  width: 100%;
+}
+.prose p:has(> .ui-image-lightbox:only-child):not(:where(.ui-not-prose *)) {
+  margin-block: 40px;
+}
+.prose figcaption:not(:where(.ui-not-prose *)) {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--color-muted);
+  line-height: 1.8;
+}
+.prose table:not(:where(.ui-not-prose *)) {
+  border-collapse: collapse;
+  width: 100%;
+  line-height: 1.8;
+}
+.prose caption:not(:where(.ui-not-prose *)) {
+  text-align: left;
+  font-size: 14px;
+  color: var(--color-muted);
+  padding-bottom: 12px;
+}
+.prose th:not(:where(.ui-not-prose *)),
+.prose td:not(:where(.ui-not-prose *)) {
+  padding: 12px 16px;
+  border: 0;
+  border-bottom: 1px solid var(--color-line);
+  text-align: left;
+  vertical-align: top;
+}
+.prose thead:not(:where(.ui-not-prose *)) {
+  background: var(--color-surface);
+}
+.prose th:not(:where(.ui-not-prose *)) {
+  font-weight: 600;
+}
+/* Right-aligned Markdown table columns, written as an inline style or an `align` attribute. */
+.prose [style*='text-align:right']:not(:where(.ui-not-prose *)),
+.prose [style*='text-align: right']:not(:where(.ui-not-prose *)),
+.prose [align='right']:not(:where(.ui-not-prose *)) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.prose th[scope='row']:not(:where(.ui-not-prose *)) {
+  min-width: 5em;
+}
+.prose hr:not(:where(.ui-not-prose *)) {
+  border: 0;
+  border-top: 1px solid var(--color-line);
+  margin-block: 32px;
+}
+@media (max-width: 600px) {
+  .prose h1:not(:where(.ui-not-prose *)) {
+    font-size: 26px;
+  }
+}

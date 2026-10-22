@@ -1,0 +1,98 @@
+{
+  "name": "@wing-land/ui",
+  "version": "0.1.0",
+  "private": false,
+  "license": "MIT",
+  "homepage": "https://ui.wing.sz7.jp",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wing-land/ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wing-land/ui/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "type": "module",
+  "packageManager": "pnpm@10.34.6",
+  "engines": {
+    "node": "24.x",
+    "pnpm": "10.x"
+  },
+  "files": [
+    "app",
+    "nuxt",
+    "theme",
+    "index.ts",
+    "nuxt.config.ts",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./index.ts",
+    "./tokens.css": "./app/assets/css/tokens.css",
+    "./base.css": "./app/assets/css/base.css",
+    "./prose.css": "./app/assets/css/prose.css",
+    "./fonts.css": "./app/assets/css/fonts.css",
+    "./theme/shiki": {
+      "types": "./theme/shiki.d.ts",
+      "default": "./theme/shiki.js"
+    },
+    "./nuxt": "./nuxt.config.ts"
+  },
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "lint": "pnpm --dir tests/nuxt-consumer exec nuxt prepare && eslint app nuxt index.ts nuxt.config.ts theme docs/.vitepress docs/demos tests vitest.config.ts --max-warnings=0 && stylelint \"app/**/*.{vue,css,scss}\" \"docs/.vitepress/theme/**/*.{vue,css}\" \"docs/demos/**/*.vue\" --max-warnings 0",
+    "typecheck": "pnpm --dir tests/nuxt-consumer typecheck && vue-tsc -p tests/tsconfig.json",
+    "test:vue": "vite build --config tests/vue-consumer/vite.config.ts",
+    "test:nuxt": "pnpm --dir tests/nuxt-consumer generate && node tests/nuxt-consumer/check.mjs",
+    "format": "prettier --write \"app/**/*.{vue,ts,css,scss}\" \"theme/**/*.{ts,js,json}\" \"nuxt/**/*.ts\" \"docs/**/*.{md,ts,vue,css}\" \"*.{ts,json}\" \"tests/**/*.{ts,vue}\"",
+    "format:check": "prettier --check \"app/**/*.{vue,ts,css,scss}\" \"theme/**/*.{ts,js,json}\" \"nuxt/**/*.ts\" \"docs/**/*.{md,ts,vue,css}\" \"*.{ts,json}\" \"tests/**/*.{ts,vue}\"",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "nuxt": "^4.0.0",
+    "vue": "^3.5.0"
+  },
+  "peerDependenciesMeta": {
+    "nuxt": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@nuxt/eslint": "^1.17.0",
+    "@semantic-release/changelog": "^7.0.0",
+    "@semantic-release/git": "^11.0.1",
+    "@types/node": "^24.19.2",
+    "@vitejs/plugin-vue": "^6.0.10",
+    "@vitest/browser-playwright": "5.0.3",
+    "axe-core": "4.14.0",
+    "eslint": "^10.12.0",
+    "minisearch": "7.2.0",
+    "nuxt": "^4.5.2",
+    "playwright": "1.63.0",
+    "postcss-html": "^2.0.0",
+    "postcss-scss": "^4.0.9",
+    "prettier": "^3.9.9",
+    "sass-embedded": "^1.105.1",
+    "semantic-release": "^25.0.9",
+    "stylelint": "^17.16.0",
+    "stylelint-config-recommended-scss": "^17.0.1",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.4",
+    "vitepress": "^1.6.4",
+    "vitest": "5.0.3",
+    "vitest-browser-vue": "3.1.0",
+    "vue": "^3.5.43",
+    "vue-component-meta": "3.3.13",
+    "vue-tsc": "^3.3.12",
+    "yaml": "2.9.1"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
+    "@nuxtjs/color-mode": "^4.0.1",
+    "reka-ui": "2.11.0"
+  }
+}
