@@ -66,19 +66,24 @@ Shiki themes for syntax highlighting are at `@wing-land/ui/theme/shiki`.
 
 ## Development
 
-Requires Node 24.22.1 and pnpm 10.34.6.
+Use the Node and pnpm versions pinned in `.node-version` and `packageManager` in `package.json`.
 
 ```sh
 pnpm install
-pnpm dev        # docs site
-pnpm lint
-pnpm typecheck
-pnpm test       # component tests in Chromium
-pnpm test:nuxt  # builds tests/nuxt-consumer to check the Nuxt Layer
-pnpm build      # docs build
+pnpm exec playwright install --only-shell chromium  # once, for pnpm test
 ```
 
-Demos are in `docs/demos/`, and the API table text is in each page's frontmatter.
+| Command          | What it does                                           |
+| ---------------- | ------------------------------------------------------ |
+| `pnpm dev`       | Serves the docs site locally                           |
+| `pnpm build`     | Builds the docs site                                   |
+| `pnpm lint`      | Runs ESLint and Stylelint                              |
+| `pnpm format`    | Formats files with Prettier                            |
+| `pnpm typecheck` | Type-checks the library and the Nuxt test app          |
+| `pnpm test`      | Runs component tests in Chromium (Vitest browser mode) |
+| `pnpm test:vue`  | Builds `tests/vue-consumer` to check Vue usage         |
+| `pnpm test:nuxt` | Builds `tests/nuxt-consumer` to check the Nuxt Layer   |
 
-`pnpm test` runs Vitest in browser mode. Before the first run, install the browser with `pnpm exec playwright install --only-shell chromium`. On Linux distributions that Playwright does not officially support (such as LMDE), add `PLAYWRIGHT_HOST_PLATFORM_OVERRIDE=debian12-x64`.
+Demos live in `docs/demos/`. The API table text for each component is in its docs page's frontmatter.
 
+If Playwright cannot install Chromium on your Linux distribution, see Playwright's [system requirements](https://playwright.dev/docs/intro#system-requirements).
