@@ -1,8 +1,23 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useDocsLabels } from './inject'
+import { fill } from './labels'
+
 export type SearchHit = { id: string; title: string; titles: string[] }
 
-defineProps<{ id: string; hits: SearchHit[]; activeIndex: number; searched: boolean }>()
+const props = defineProps<{
+  id: string
+  hits: SearchHit[]
+  activeIndex: number
+  searched: boolean
+}>()
 const emit = defineEmits<{ select: [hit: SearchHit]; hover: [index: number] }>()
+const labels = useDocsLabels()
+const status = computed(() => {
+  const count = props.hits.length
+  if (!count) return labels.value.noResults
+  return fill(count === 1 ? labels.value.resultCountOne : labels.value.resultCountOther, { count })
+})
 </script>
 
 <template>
@@ -11,7 +26,7 @@ const emit = defineEmits<{ select: [hit: SearchHit]; hover: [index: number] }>()
     :id="id"
     class="docs-search-results"
     role="listbox"
-    aria-label="Search results"
+    :aria-label="labels.searchResults"
   >
     <li
       v-for="(hit, i) in hits"
@@ -32,9 +47,7 @@ const emit = defineEmits<{ select: [hit: SearchHit]; hover: [index: number] }>()
     </li>
   </ul>
   <p class="docs-search-status" role="status">
-    <template v-if="searched">{{
-      hits.length ? `${hits.length} ${hits.length === 1 ? 'result' : 'results'}` : 'No results'
-    }}</template>
+    <template v-if="searched">{{ status }}</template>
   </p>
 </template>
 

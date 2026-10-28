@@ -25,6 +25,7 @@
     "app",
     "nuxt",
     "theme",
+    "vitepress",
     "index.ts",
     "nuxt.config.ts",
     "README.md"
@@ -39,25 +40,35 @@
       "types": "./theme/shiki.d.ts",
       "default": "./theme/shiki.js"
     },
+    "./vitepress": "./vitepress/index.ts",
+    "./vitepress/config": {
+      "types": "./vitepress/config.d.ts",
+      "default": "./vitepress/config.js"
+    },
     "./nuxt": "./nuxt.config.ts"
   },
   "scripts": {
     "dev": "vitepress dev docs",
     "build": "vitepress build docs",
-    "lint": "pnpm --dir tests/nuxt-consumer exec nuxt prepare && eslint app nuxt index.ts nuxt.config.ts theme docs/.vitepress docs/demos tests vitest.config.ts --max-warnings=0 && stylelint \"app/**/*.{vue,css,scss}\" \"docs/.vitepress/theme/**/*.{vue,css}\" \"docs/demos/**/*.vue\" --max-warnings 0",
-    "typecheck": "pnpm --dir tests/nuxt-consumer typecheck && vue-tsc -p tests/tsconfig.json",
+    "lint": "pnpm --dir tests/nuxt-consumer exec nuxt prepare && eslint app nuxt vitepress index.ts nuxt.config.ts theme docs/.vitepress docs/demos tests vitest.config.ts --max-warnings=0 && stylelint \"app/**/*.{vue,css,scss}\" \"vitepress/**/*.{vue,css}\" \"docs/.vitepress/theme/**/*.{vue,css}\" \"docs/demos/**/*.vue\" --max-warnings 0",
+    "typecheck": "pnpm --dir tests/nuxt-consumer typecheck && pnpm --dir tests/vitepress-consumer typecheck && vue-tsc -p tests/tsconfig.json",
     "test:vue": "vite build --config tests/vue-consumer/vite.config.ts",
     "test:nuxt": "pnpm --dir tests/nuxt-consumer generate && node tests/nuxt-consumer/check.mjs",
-    "format": "prettier --write \"app/**/*.{vue,ts,css,scss}\" \"theme/**/*.{ts,js,json}\" \"nuxt/**/*.ts\" \"docs/**/*.{md,ts,vue,css}\" \"*.{ts,json}\" \"tests/**/*.{ts,vue}\"",
-    "format:check": "prettier --check \"app/**/*.{vue,ts,css,scss}\" \"theme/**/*.{ts,js,json}\" \"nuxt/**/*.ts\" \"docs/**/*.{md,ts,vue,css}\" \"*.{ts,json}\" \"tests/**/*.{ts,vue}\"",
+    "test:vitepress": "pnpm --dir tests/vitepress-consumer build && node tests/vitepress-consumer/check.mjs",
+    "format": "prettier --write \"app/**/*.{vue,ts,css,scss}\" \"theme/**/*.{ts,js,json}\" \"nuxt/**/*.ts\" \"vitepress/**/*.{vue,ts,js,css}\" \"docs/**/*.{md,ts,vue,css}\" \"*.{ts,json}\" \"tests/**/*.{ts,vue}\"",
+    "format:check": "prettier --check \"app/**/*.{vue,ts,css,scss}\" \"theme/**/*.{ts,js,json}\" \"nuxt/**/*.ts\" \"vitepress/**/*.{vue,ts,js,css}\" \"docs/**/*.{md,ts,vue,css}\" \"*.{ts,json}\" \"tests/**/*.{ts,vue}\"",
     "test": "vitest run"
   },
   "peerDependencies": {
     "nuxt": "^4.0.0",
-    "vue": "^3.5.0"
+    "vue": "^3.5.0",
+    "vitepress": "^1.6.0"
   },
   "peerDependenciesMeta": {
     "nuxt": {
+      "optional": true
+    },
+    "vitepress": {
       "optional": true
     }
   },
@@ -70,7 +81,6 @@
     "@vitest/browser-playwright": "5.0.3",
     "axe-core": "4.14.0",
     "eslint": "^10.12.0",
-    "minisearch": "7.2.0",
     "nuxt": "^4.5.2",
     "playwright": "1.63.0",
     "postcss-html": "^2.0.0",
@@ -93,6 +103,7 @@
   "dependencies": {
     "@fontsource-variable/inter": "^5.3.0",
     "@nuxtjs/color-mode": "^4.0.1",
+    "minisearch": "^7.2.0",
     "reka-ui": "2.11.0"
   }
 }

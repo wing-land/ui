@@ -21,6 +21,7 @@ jobs:
       - run: pnpm test
       - run: pnpm test:vue
       - run: pnpm test:nuxt
+      - run: pnpm test:vitepress
       - run: pnpm build
   release:
     needs: verify

@@ -53,6 +53,34 @@ createApp(App)
 
 Import components from `@wing-land/ui` in the files that use them.
 
+## VitePress
+
+```ts
+// .vitepress/config.ts
+import { defineConfigWithTheme } from 'vitepress'
+import wingConfig, { type DocsThemeConfig } from '@wing-land/ui/vitepress/config'
+
+export default defineConfigWithTheme<DocsThemeConfig>({
+  extends: wingConfig,
+  lang: 'ja',
+  title: 'My docs',
+  themeConfig: {
+    nav: [{ text: 'Guide', link: '/guide' }],
+    sidebar: [{ text: 'Guide', items: [{ text: 'Getting started', link: '/guide' }] }],
+    footerLinks: [{ text: 'GitHub', link: 'https://github.com/...' }],
+  },
+})
+```
+
+```ts
+// .vitepress/theme/index.ts
+export { default } from '@wing-land/ui/vitepress'
+```
+
+The theme has a header, sidebar, page outline, local search, and a light and dark switch, built from the library's components. Its text follows the site `lang` (`ja` or English); `themeConfig.labels` overrides part of it. The config sets up local search, the Shiki themes, and the dark theme script. Use `createThemeConfig({ colorModeStorageKey })` instead of the default export to change where the theme choice is saved.
+
+See [docs/vitepress.md](docs/vitepress.md) for all the options.
+
 ## CSS files
 
 | File                       | Required | What it does                                |
@@ -73,16 +101,17 @@ pnpm install
 pnpm exec playwright install --only-shell chromium  # once, for pnpm test
 ```
 
-| Command          | What it does                                           |
-| ---------------- | ------------------------------------------------------ |
-| `pnpm dev`       | Serves the docs site locally                           |
-| `pnpm build`     | Builds the docs site                                   |
-| `pnpm lint`      | Runs ESLint and Stylelint                              |
-| `pnpm format`    | Formats files with Prettier                            |
-| `pnpm typecheck` | Type-checks the library and the Nuxt test app          |
-| `pnpm test`      | Runs component tests in Chromium (Vitest browser mode) |
-| `pnpm test:vue`  | Builds `tests/vue-consumer` to check Vue usage         |
-| `pnpm test:nuxt` | Builds `tests/nuxt-consumer` to check the Nuxt Layer   |
+| Command               | What it does                                           |
+| --------------------- | ------------------------------------------------------ |
+| `pnpm dev`            | Serves the docs site locally                           |
+| `pnpm build`          | Builds the docs site                                   |
+| `pnpm lint`           | Runs ESLint and Stylelint                              |
+| `pnpm format`         | Formats files with Prettier                            |
+| `pnpm typecheck`      | Type-checks the library and the test apps              |
+| `pnpm test`           | Runs component tests in Chromium (Vitest browser mode) |
+| `pnpm test:vue`       | Builds `tests/vue-consumer` to check Vue usage         |
+| `pnpm test:nuxt`      | Builds `tests/nuxt-consumer` to check the Nuxt Layer   |
+| `pnpm test:vitepress` | Builds `tests/vitepress-consumer` to check the theme   |
 
 Demos live in `docs/demos/`. The API table text for each component is in its docs page's frontmatter.
 
