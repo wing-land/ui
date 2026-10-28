@@ -6,7 +6,12 @@ import { UiTimeline } from '@wing-land/ui'
     <UiTimeline
       :items="[
         { date: '2026-10', title: 'Launched', description: 'First public release' },
-        { date: '2026-08', title: 'Public beta', description: 'Opened sign-ups to everyone' },
+        {
+          date: '2026-08',
+          title: 'Public beta',
+          description: 'Opened sign-ups to everyone',
+          filled: true,
+        },
         { date: '2026-05', title: 'Private beta' },
       ]"
     />

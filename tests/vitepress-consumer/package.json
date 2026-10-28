@@ -1,0 +1,19 @@
+{
+  "name": "@wing-land/ui-vitepress-consumer",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev docs --port 3002",
+    "build": "vitepress build docs",
+    "typecheck": "vue-tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@wing-land/ui": "workspace:*",
+    "vitepress": "^1.6.4",
+    "vue": "^3.5.43"
+  },
+  "devDependencies": {
+    "sass-embedded": "^1.105.1",
+    "vue-tsc": "^3.3.12"
+  }
+}

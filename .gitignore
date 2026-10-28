@@ -11,3 +11,5 @@ docs/.vitepress/dist/
 .env.*
 !.env.example
 !.env.sample
+tests/vitepress-consumer/docs/.vitepress/cache/
+tests/vitepress-consumer/docs/.vitepress/dist/

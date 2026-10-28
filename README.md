@@ -53,6 +53,34 @@ createApp(App)
 
 Import components from `@wing-land/ui` in the files that use them.
 
+## VitePress
+
+```ts
+// .vitepress/config.ts
+import { defineConfigWithTheme } from 'vitepress'
+import wingConfig, { type DocsThemeConfig } from '@wing-land/ui/vitepress/config'
+
+export default defineConfigWithTheme<DocsThemeConfig>({
+  extends: wingConfig,
+  lang: 'ja',
+  title: 'My docs',
+  themeConfig: {
+    nav: [{ text: 'Guide', link: '/guide' }],
+    sidebar: [{ text: 'Guide', items: [{ text: 'Getting started', link: '/guide' }] }],
+    footerLinks: [{ text: 'GitHub', link: 'https://github.com/...' }],
+  },
+})
+```
+
+```ts
+// .vitepress/theme/index.ts
+export { default } from '@wing-land/ui/vitepress'
+```
+
+The theme has a header, sidebar, page outline, local search, and a light and dark switch, built from the library's components. Its text follows the site `lang` (`ja` or English); `themeConfig.labels` overrides part of it. The config sets up local search, the Shiki themes, and the dark theme script. Use `createThemeConfig({ colorModeStorageKey })` instead of the default export to change where the theme choice is saved.
+
+See [docs/vitepress.md](docs/vitepress.md) for all the options.
+
 ## CSS files
 
 | File                       | Required | What it does                                |
@@ -66,19 +94,25 @@ Shiki themes for syntax highlighting are at `@wing-land/ui/theme/shiki`.
 
 ## Development
 
-Requires Node 24.22.1 and pnpm 10.34.6.
+Use the Node and pnpm versions pinned in `.node-version` and `packageManager` in `package.json`.
 
 ```sh
 pnpm install
-pnpm dev        # docs site
-pnpm lint
-pnpm typecheck
-pnpm test       # component tests in Chromium
-pnpm test:nuxt  # builds tests/nuxt-consumer to check the Nuxt Layer
-pnpm build      # docs build
+pnpm exec playwright install --only-shell chromium  # once, for pnpm test
 ```
 
-Demos are in `docs/demos/`, and the API table text is in each page's frontmatter.
+| Command               | What it does                                           |
+| --------------------- | ------------------------------------------------------ |
+| `pnpm dev`            | Serves the docs site locally                           |
+| `pnpm build`          | Builds the docs site                                   |
+| `pnpm lint`           | Runs ESLint and Stylelint                              |
+| `pnpm format`         | Formats files with Prettier                            |
+| `pnpm typecheck`      | Type-checks the library and the test apps              |
+| `pnpm test`           | Runs component tests in Chromium (Vitest browser mode) |
+| `pnpm test:vue`       | Builds `tests/vue-consumer` to check Vue usage         |
+| `pnpm test:nuxt`      | Builds `tests/nuxt-consumer` to check the Nuxt Layer   |
+| `pnpm test:vitepress` | Builds `tests/vitepress-consumer` to check the theme   |
 
-`pnpm test` runs Vitest in browser mode. Before the first run, install the browser with `pnpm exec playwright install --only-shell chromium`. On Linux distributions that Playwright does not officially support (such as LMDE), add `PLAYWRIGHT_HOST_PLATFORM_OVERRIDE=debian12-x64`.
+Demos live in `docs/demos/`. The API table text for each component is in its docs page's frontmatter.
 
+If Playwright cannot install Chromium on your Linux distribution, see Playwright's [system requirements](https://playwright.dev/docs/intro#system-requirements).

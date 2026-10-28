@@ -114,6 +114,10 @@ import '@wing-land/ui/base.css'
 import '@wing-land/ui/prose.css'
 ```
 
+## VitePress
+
+For a docs site, the library also ships a VitePress theme built from its components, like the one this site uses. It has a header, a sidebar, a page outline, local search, and a light and dark switch. See [VitePress](/vitepress) for how to set it up.
+
 ## Dark theme
 
 The dark colors apply when `<html>` has the `dark` class or `data-theme="dark"`. In Nuxt, turning on `wingUi.colorMode` makes the theme follow the saved choice or the OS. In Vue, your app decides the theme and sets it on `<html>`. See [Design](/design#light-and-dark) for how to switch.
@@ -123,3 +127,4 @@ The dark colors apply when `<html>` has the `dark` class or `data-theme="dark"`.
 - [Components](/components/): the look, usage, and props of every component
 - [Design](/design): which CSS files to load, tokens, and colors
 - [Config](/config): locale, link component, date format, and other settings
+- [VitePress](/vitepress): the docs site theme and its options

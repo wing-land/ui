@@ -3,17 +3,19 @@ import searchIndexes from '@localSearchIndex'
 import MiniSearch from 'minisearch'
 import { useRouter } from 'vitepress'
 import { computed, onMounted, onUnmounted, shallowRef, useId, watch } from 'vue'
-import UiButton from '../../../app/components/UiButton.vue'
-import UiKbd from '../../../app/components/UiKbd.vue'
-import UiModal from '../../../app/components/UiModal.vue'
-import UiSearchInput from '../../../app/components/UiSearchInput.vue'
-import { searchIndexOptions, searchQueryOptions } from '../search'
+import UiButton from '../app/components/UiButton.vue'
+import UiKbd from '../app/components/UiKbd.vue'
+import UiModal from '../app/components/UiModal.vue'
+import UiSearchInput from '../app/components/UiSearchInput.vue'
 import DocsSearchResults, { type SearchHit } from './DocsSearchResults.vue'
+import { useDocsLabels } from './inject'
+import { searchIndexOptions, searchQueryOptions } from './search.js'
 
 // Matches the breakpoint where style.css hides the header navigation.
 const wideScreen = '(min-width: 761px)'
 
 const router = useRouter()
+const labels = useDocsLabels()
 const inlineListId = useId()
 const modalListId = useId()
 const modalOpen = shallowRef(false)
@@ -21,7 +23,7 @@ const inlineOpen = shallowRef(false)
 const inlineInput = shallowRef<InstanceType<typeof UiSearchInput> | null>(null)
 const query = shallowRef('')
 const activeIndex = shallowRef(0)
-// VitePress builds one index per locale, and the component pages are a separate locale.
+// VitePress builds one index per locale. Results come from all of them.
 const indexes = shallowRef<MiniSearch[]>([])
 
 const hits = computed<SearchHit[]>(() => {
@@ -119,9 +121,9 @@ onUnmounted(() => window.removeEventListener('keydown', onGlobalKeydown))
       ref="inlineInput"
       v-model="query"
       size="sm"
-      label="Search docs"
-      clear-label="Clear search"
-      placeholder="Search"
+      :label="labels.searchDocs"
+      :clear-label="labels.clearSearch"
+      :placeholder="labels.searchPlaceholder"
       role="combobox"
       aria-autocomplete="list"
       :aria-expanded="inlineOpen && hits.length > 0"
@@ -149,14 +151,14 @@ onUnmounted(() => window.removeEventListener('keydown', onGlobalKeydown))
     class="docs-search-button"
     variant="ghost"
     icon="search"
-    label="Search"
+    :label="labels.searchPlaceholder"
     @click="modalOpen = true"
   />
-  <UiModal v-model:open="modalOpen" label="Search docs" close-label="Close" size="large">
+  <UiModal v-model:open="modalOpen" :label="labels.searchDocs" size="large">
     <UiSearchInput
       v-model="query"
-      label="Search docs"
-      clear-label="Clear search"
+      :label="labels.searchDocs"
+      :clear-label="labels.clearSearch"
       autofocus
       role="combobox"
       aria-autocomplete="list"
