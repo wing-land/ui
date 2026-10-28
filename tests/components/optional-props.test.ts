@@ -43,6 +43,22 @@ test('timeline uses the given heading level', async () => {
   expect(screen.container.querySelector('h2.timeline-title')!.textContent).toBe('Launched')
 })
 
+test('timeline fills only the markers explicitly marked as filled', async () => {
+  const items = [
+    { date: '2026-10', title: 'First' },
+    { date: '2026-09', title: 'Filled', filled: true },
+    { date: '2026-08', title: 'Hollow', filled: false },
+  ]
+  const screen = await render(UiTimeline, { props: { items } })
+  const markers = screen.container.querySelectorAll('.timeline-marker')
+  const colors = Array.from(
+    markers,
+    (marker) => getComputedStyle(marker, '::before').backgroundColor,
+  )
+  expect(colors[0]).toBe(colors[2])
+  expect(colors[1]).not.toBe(colors[0])
+})
+
 test('profile identity falls back to initials without an image', async () => {
   const screen = await render(UiProfileIdentity, { props: { name: 'Ada Lovelace' } })
   expect(screen.container.querySelector('img')).toBeNull()

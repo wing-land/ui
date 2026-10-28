@@ -30,6 +30,7 @@ export interface UiTimelineItem {
   date: UiDateInput
   title: string
   description?: string
+  filled?: boolean
 }
 
 export interface UiAccountItem {

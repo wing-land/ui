@@ -13,7 +13,11 @@ const ui = useUiConfig()
   <ol class="timeline ui-timeline">
     <li v-for="item in items" :key="`${toDateTimeAttribute(item.date)}:${item.title}`">
       <time :datetime="toDateTimeAttribute(item.date)">{{ ui.formatDate(item.date) }}</time>
-      <span class="timeline-marker" aria-hidden="true" />
+      <span
+        class="timeline-marker"
+        :class="{ 'timeline-marker--filled': item.filled }"
+        aria-hidden="true"
+      />
       <div class="timeline-content">
         <component :is="`h${headingLevel}`" class="timeline-title">{{ item.title }}</component>
         <p v-if="item.description">{{ item.description }}</p>
@@ -85,7 +89,6 @@ time {
   margin-inline: auto;
   background: var(--color-line);
 
-  // The first event is filled and the rest are hollow, so the start of the list stands out.
   &::before {
     content: '';
     position: absolute;
@@ -99,7 +102,7 @@ time {
     transform: translate(-50%, -50%);
   }
 
-  li:first-child > &::before {
+  &--filled::before {
     border-color: var(--color-accent);
     background: var(--color-accent);
   }
