@@ -10,16 +10,18 @@ import UiSiteFooter from '../app/components/UiSiteFooter.vue'
 import UiThemePicker from '../app/components/UiThemePicker.vue'
 import { isExternalHref, provideUiConfig } from '../app/lib/config'
 import { en, ja } from '../app/lib/messages'
+import DocsLanguageMenu from './DocsLanguageMenu.vue'
 import DocsSearch from './DocsSearch.vue'
 import { docsLabelsKey } from './inject'
 import { fill, isJapanese, resolveLabels } from './labels'
+import { localeLinks } from './locales'
 import type { DocsThemeConfig } from './types'
 
 type ThemeMode = 'system' | 'light' | 'dark'
 
 defineSlots<{ brand?: () => unknown }>()
 
-const { site, theme, page, lang } = useData<DocsThemeConfig>()
+const { site, theme, page, lang, localeIndex } = useData<DocsThemeConfig>()
 const route = useRoute()
 const themeMode = shallowRef<ThemeMode>('system')
 const sidebarOpen = shallowRef(false)
@@ -53,6 +55,15 @@ const sidebarGroups = computed(() =>
   })),
 )
 const currentHref = computed(() => route.path)
+const languages = computed(() =>
+  localeLinks({
+    locales: site.value.locales,
+    currentLocale: localeIndex.value,
+    relativePath: page.value.relativePath,
+    cleanUrls: site.value.cleanUrls ?? false,
+    samePage: theme.value.i18nRouting !== false && !page.value.isNotFound,
+  }).map((locale) => ({ ...locale, link: withBase(locale.link) })),
+)
 const footerLinks = computed(() =>
   (theme.value.footerLinks ?? []).map((item) => {
     const external = isExternalHref(item.link)
@@ -130,6 +141,7 @@ watch(
       </template>
       <template #actions>
         <DocsSearch />
+        <DocsLanguageMenu v-if="languages.length > 1" :locales="languages" />
         <UiThemePicker v-model="themeMode" />
       </template>
     </UiAppHeader>

@@ -13,6 +13,10 @@ assert.match(html, />\s*テストサイト\s*</, 'the brand falls back to the si
 assert.match(html, /href="https:\/\/github.com\/wing-land\/ui"/, 'footerLinks render')
 assert.match(html, /wing-ui-color-mode/, 'the config adds the color mode script')
 assert.match(html, /<h2 id="使い方"/, 'markdown.headers feeds the page outline')
+assert.match(html, /aria-label="言語 \(現在: 日本語\)"/, 'a site with locales gets the language menu')
+const englishHtml = await readFile(new URL('en/index.html', dist), 'utf8')
+assert.match(englishHtml, /<html lang="en"/, 'the English locale gets its own lang')
+assert.match(englishHtml, /aria-label="Language \(current: English\)"/, 'the language menu follows the locale')
 const assets = await readdir(new URL('assets/', dist))
 const chunks = await readdir(new URL('assets/chunks/', dist))
 assert.ok(

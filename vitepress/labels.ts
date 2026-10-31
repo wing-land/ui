@@ -14,6 +14,8 @@ export const enLabels: DocsLabels = {
   resultCountOne: '{count} result',
   resultCountOther: '{count} results',
   noResults: 'No results',
+  language: 'Language',
+  languageCurrent: 'Language (current: {language})',
 }
 
 export const jaLabels: DocsLabels = {
@@ -30,6 +32,8 @@ export const jaLabels: DocsLabels = {
   resultCountOne: '{count} 件',
   resultCountOther: '{count} 件',
   noResults: '見つかりませんでした',
+  language: '言語',
+  languageCurrent: '言語 (現在: {language})',
 }
 
 export function isJapanese(lang: string) {
