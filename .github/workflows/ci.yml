@@ -27,7 +27,8 @@ jobs:
     needs: verify
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    # The release commit is not marked [skip ci]: Vercel waits for `verify` on it before going live.
+    # The release commit is pushed with GITHUB_TOKEN, so it never triggers CI. vercel.json's ignoreCommand
+    # skips its Vercel build; otherwise Vercel would wait forever for `verify` on it.
     concurrency: release
     permissions:
       contents: write
