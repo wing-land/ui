@@ -1,3 +1,15 @@
+# [0.3.0](https://github.com/wing-land/ui/compare/v0.2.0...v0.3.0) (2026-11-02)
+
+
+### Bug Fixes
+
+* **workflow:** Ignore release commit not to run ci/vercel deploy ([9797cf4](https://github.com/wing-land/ui/commit/9797cf479e54a7b55d9b5b0b97e4bfe3f284a55a))
+
+
+### Features
+
+* **vitepress:** Add language picker ([2a87d40](https://github.com/wing-land/ui/commit/2a87d40c9f4da0c131580d7a6c874bf17bce8e6e))
+
 # [0.2.0](https://github.com/wing-land/ui/compare/v0.1.0...v0.2.0) (2026-10-28)
 
 
