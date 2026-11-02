@@ -67,7 +67,6 @@ The theme does not replace VitePress's default theme feature for feature.
 
 - A different sidebar for each path. `sidebar` is a single list shown on every page.
 - Edit links, last updated dates, and previous and next page links
-- A language menu for VitePress locales. Each locale still gets its own text from its `lang`.
   {.docs-checklist .is-no}
 
 ## Theme config
@@ -81,6 +80,7 @@ These are the `themeConfig` options the theme reads.
 | `footerLinks`         | `{ text, link }[]`                    | `[]`                                       |
 | `labels`              | `Partial<DocsLabels>`                 | The text for the site `lang`               |
 | `colorModeStorageKey` | string                                | Set by `createThemeConfig()`               |
+| `i18nRouting`         | boolean                               | `true`                                     |
 | `search`              | VitePress local search options        | `provider: 'local'` with the theme's index |
 
 Links in `nav`, `sidebar`, and internal `footerLinks` are paths without the `base`; the theme adds it. A nav item is shown as current when the page path is its link or starts with it, so `/guide/` stays current on `/guide/install`. Footer links to external sites get the external link mark.
@@ -116,6 +116,30 @@ export default defineConfigWithTheme<DocsThemeConfig>({
 ### All text
 
 <DocsThemeLabels />
+
+## Languages
+
+When the site has more than one VitePress locale, the header shows a language menu next to the theme switch. It lists each locale's `label`, and each link goes to the same page in that locale: `/en/guide/install` links to `/guide/install` in the root locale. Give every locale its own `nav`, `sidebar`, and `footerLinks` in its `themeConfig`.
+
+```ts
+export default defineConfigWithTheme<DocsThemeConfig>({
+  extends: wingConfig,
+  locales: {
+    root: {
+      label: '日本語',
+      lang: 'ja',
+      themeConfig: { nav: [{ text: 'ガイド', link: '/guide/' }] },
+    },
+    en: {
+      label: 'English',
+      lang: 'en',
+      themeConfig: { nav: [{ text: 'Guide', link: '/en/guide/' }] },
+    },
+  },
+})
+```
+
+The menu does not check that the page exists in the other locale. If some pages are not translated, set `i18nRouting: false` so that the links go to each locale's home page instead. On the 404 page the links always go to the home pages.
 
 ## Logo
 

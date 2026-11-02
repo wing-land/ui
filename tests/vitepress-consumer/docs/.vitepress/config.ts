@@ -5,6 +5,10 @@ export default defineConfigWithTheme<DocsThemeConfig>({
   extends: wingConfig,
   lang: 'ja',
   title: 'テストサイト',
+  locales: {
+    root: { label: '日本語', lang: 'ja' },
+    en: { label: 'English', lang: 'en', title: 'Test site' },
+  },
   themeConfig: {
     nav: [
       { text: 'はじめに', link: '/' },
