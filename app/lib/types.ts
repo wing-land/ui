@@ -28,9 +28,15 @@ export interface UiEntryListItem {
 
 export interface UiTimelineItem {
   date: UiDateInput
+  /** Text shown instead of the formatted date, such as a time of day. `date` stays in the `datetime` attribute. */
+  dateLabel?: string
   title: string
+  /** Makes the title a link. */
+  href?: string
   description?: string
   filled?: boolean
+  /** Defaults to the date and title. Set it when two events share both. */
+  key?: string
 }
 
 export interface UiAccountItem {

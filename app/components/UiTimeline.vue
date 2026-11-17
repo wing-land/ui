@@ -1,26 +1,45 @@
-<script setup lang="ts">
-import { useUiConfig } from '../lib/config'
+<script setup lang="ts" generic="T extends UiTimelineItem">
+import { useUiConfig, type UiLinkComponent } from '../lib/config'
 import { toDateTimeAttribute } from '../lib/date'
 import type { UiTimelineItem } from '../lib/types'
 
-withDefaults(defineProps<{ items: readonly UiTimelineItem[]; headingLevel?: 2 | 3 | 4 }>(), {
-  headingLevel: 3,
-})
+withDefaults(
+  defineProps<{
+    items: readonly T[]
+    headingLevel?: 2 | 3 | 4
+    /** `compact` tightens spacing for short entries such as a day's schedule. */
+    density?: 'default' | 'compact'
+    linkComponent?: UiLinkComponent
+  }>(),
+  { headingLevel: 3, density: 'default', linkComponent: undefined },
+)
+defineSlots<{ meta?: (props: { item: T }) => unknown }>()
 const ui = useUiConfig()
 </script>
 
 <template>
-  <ol class="timeline ui-timeline">
-    <li v-for="item in items" :key="`${toDateTimeAttribute(item.date)}:${item.title}`">
-      <time :datetime="toDateTimeAttribute(item.date)">{{ ui.formatDate(item.date) }}</time>
+  <ol class="timeline ui-timeline" :class="{ 'is-compact': density === 'compact' }">
+    <li v-for="item in items" :key="item.key ?? `${toDateTimeAttribute(item.date)}:${item.title}`">
+      <time :datetime="toDateTimeAttribute(item.date)">{{
+        item.dateLabel || ui.formatDate(item.date)
+      }}</time>
       <span
         class="timeline-marker"
         :class="{ 'timeline-marker--filled': item.filled }"
         aria-hidden="true"
       />
       <div class="timeline-content">
-        <component :is="`h${headingLevel}`" class="timeline-title">{{ item.title }}</component>
+        <component :is="`h${headingLevel}`" class="timeline-title"
+          ><component
+            :is="linkComponent ?? ui.linkComponent"
+            v-if="item.href"
+            :href="item.href"
+            class="timeline-link"
+            >{{ item.title }}</component
+          ><template v-else>{{ item.title }}</template></component
+        >
         <p v-if="item.description">{{ item.description }}</p>
+        <div v-if="$slots.meta" class="timeline-meta"><slot name="meta" :item="item" /></div>
       </div>
     </li>
   </ol>
@@ -127,11 +146,80 @@ p {
   white-space: pre-line;
   overflow-wrap: anywhere;
 }
+.timeline-link {
+  color: inherit;
+  text-decoration-color: var(--color-line);
+  text-underline-offset: 0.25em;
+
+  &:hover {
+    text-decoration-color: currentcolor;
+  }
+}
+.timeline-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin-top: 4px;
+  color: var(--color-muted);
+  font-size: 13px;
+}
 .timeline-content {
   @container ui-timeline (max-width: 560px) {
     grid-column: 2;
     grid-row: 1;
     padding-top: 24px;
+  }
+}
+
+// The date column is short in compact timelines, so it keeps its column at every width.
+.is-compact {
+  margin: 0;
+
+  li {
+    grid-template-columns: minmax(var(--ui-timeline-date-width, 3.2em), max-content) 16px minmax(
+        0,
+        1fr
+      );
+    gap: 8px;
+    min-height: 76px;
+
+    @container ui-timeline (max-width: 560px) {
+      grid-template-columns: minmax(var(--ui-timeline-date-width, 3.2em), max-content) 16px minmax(
+          0,
+          1fr
+        );
+      gap: 8px;
+    }
+  }
+
+  time,
+  .timeline-marker,
+  .timeline-content {
+    @container ui-timeline (max-width: 560px) {
+      grid-column: auto;
+      grid-row: auto;
+      padding-top: 0;
+    }
+  }
+
+  time {
+    padding-top: 1px;
+  }
+
+  .timeline-content {
+    padding-bottom: 16px;
+  }
+
+  .timeline-title {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  p {
+    margin-top: 4px;
+    font-size: 13px;
+    line-height: 1.7;
   }
 }
 </style>
