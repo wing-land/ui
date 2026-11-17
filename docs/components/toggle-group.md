@@ -6,6 +6,7 @@ api:
       label: 'Accessible name of the group.'
       multiple: 'Allows multiple selection.'
       allOption: 'Adds a button at the start that clears the selection. Pass a string to set its text.'
+      size: '`sm` is 32px tall with tighter padding. Use it in narrow places such as sidebars.'
       modelValue: 'Selected value. `string | null` for single selection, `string[]` for multiple selection.'
   UiTagFilter:
     props:
@@ -31,7 +32,7 @@ A group of buttons with a pressed state. Supports single and multiple selection,
 
 ### Usage
 
-By default only one button can be selected, and pressing a button selects it. With `multiple`, each press toggles that button. `allOption` adds an "All" button at the start that clears the selection. Pass `count` on an item to show a count after its label.
+By default only one button can be selected, and pressing a button selects it. With `multiple`, each press toggles that button. `allOption` adds an "All" button at the start that clears the selection. Pass `count` on an item to show a count after its label. In a narrow column, such as a sidebar, use `size="sm"` so the buttons fit on one line.
 
 ### Accessibility
 

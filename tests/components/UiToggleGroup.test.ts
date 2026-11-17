@@ -17,6 +17,14 @@ describe('UiToggleGroup', () => {
     expect(screen.emitted('update:modelValue')).toEqual([['Nuxt'], [null]])
   })
 
+  it('uses the dense control height at the small size', async () => {
+    const screen = await render(UiToggleGroup, {
+      props: { items: ['Vue'], label: 'Tags', modelValue: null, size: 'sm' },
+    })
+    const button = screen.getByRole('button', { name: 'Vue' }).element() as HTMLElement
+    expect(button.getBoundingClientRect().height).toBe(32)
+  })
+
   it('toggles several values with multiple', async () => {
     const screen = await render(UiToggleGroup, {
       props: {

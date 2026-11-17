@@ -11,8 +11,10 @@ const props = withDefaults(
     multiple?: boolean
     /** Adds a first button that clears the selection. Pass a string to change its text. */
     allOption?: boolean | string
+    /** `sm` is 32px tall with tighter padding, for narrow places such as sidebars. */
+    size?: 'md' | 'sm'
   }>(),
-  { allOption: false },
+  { allOption: false, size: 'md' },
 )
 const selected = defineModel<string | null | readonly string[]>({ required: true })
 const ui = useUiConfig()
@@ -48,7 +50,12 @@ function clear() {
 </script>
 
 <template>
-  <div class="ui-toggle-group" role="group" :aria-label="label">
+  <div
+    class="ui-toggle-group"
+    :class="{ 'ui-toggle-group--sm': size === 'sm' }"
+    role="group"
+    :aria-label="label"
+  >
     <button
       v-if="allOption"
       type="button"
@@ -112,6 +119,14 @@ function clear() {
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+}
+.ui-toggle-group--sm {
+  gap: 6px;
+
+  .ui-toggle-group__item {
+    min-height: var(--control-dense);
+    padding: 4px 12px;
   }
 }
 .ui-toggle-group__count {
