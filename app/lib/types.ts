@@ -39,6 +39,20 @@ export interface UiTimelineItem {
   key?: string
 }
 
+export interface UiCalendarEvent {
+  key: string
+  title: string
+  /** `YYYY-MM-DD` for an all-day event, `YYYY-MM-DDTHH:mm` for a timed one. */
+  start: string
+  /** Exclusive end in the same form as `start`. A timed event without an end lasts 30 minutes. */
+  end?: string
+  /** `deadline` marks a point in time, drawn as a dashed line in the week and day views. */
+  kind?: 'event' | 'deadline'
+  href?: string
+  /** Draws the event with the accent color, such as one happening now. */
+  highlighted?: boolean
+}
+
 export interface UiAccountItem {
   /** Defaults to `href`. Set it when two items share a link. */
   id?: string

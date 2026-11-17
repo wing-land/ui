@@ -246,6 +246,12 @@ export const componentGroups: ComponentGroup[] = [
         description: 'Dated events in order',
         components: ['UiTimeline'],
       },
+      {
+        text: 'Calendar',
+        slug: 'calendar',
+        description: 'Events in a month, week, or day',
+        components: ['UiCalendar'],
+      },
     ],
   },
   {

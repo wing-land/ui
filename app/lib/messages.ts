@@ -86,6 +86,16 @@ export interface UiMessages {
   combobox: {
     empty: string
   }
+  calendar: {
+    allDay: string
+    /** Shown in a month cell when more events exist than fit. */
+    more: (count: number) => string
+    /** Appended to a day's accessible name. */
+    events: (count: number) => string
+    today: string
+    /** Read before the time of a deadline. */
+    due: string
+  }
   connection: {
     connected: string
     connecting: string
@@ -168,6 +178,13 @@ export const en: UiLocale = {
     avatarGroup: { more: (count) => `and ${count} more` },
     toast: { label: 'Notification', region: 'Notifications ({hotkey})' },
     combobox: { empty: 'No results' },
+    calendar: {
+      allDay: 'All day',
+      more: (count) => `+${count} more`,
+      events: (count) => (count === 1 ? '1 event' : `${count} events`),
+      today: 'Today',
+      due: 'Due',
+    },
     connection: {
       connected: 'Connected',
       connecting: 'Connecting',
@@ -238,6 +255,13 @@ export const ja: UiLocale = {
     avatarGroup: { more: (count) => `ほか ${count} 人` },
     toast: { label: '通知', region: '通知（{hotkey}）' },
     combobox: { empty: '見つかりません' },
+    calendar: {
+      allDay: '終日',
+      more: (count) => `ほか ${count} 件`,
+      events: (count) => `予定 ${count} 件`,
+      today: '今日',
+      due: '期限',
+    },
     connection: {
       connected: '接続中',
       connecting: '接続しています',
