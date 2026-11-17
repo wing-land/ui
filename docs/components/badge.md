@@ -2,7 +2,7 @@
 api:
   UiBadge:
     props:
-      tone: 'Meaning. Changes the color. Uses the same values as UiAlert.'
+      tone: 'Meaning. Changes the color. `accent` makes one label stand out; the other values are the same as UiAlert.'
       icon: 'Icon placed before the text.'
     slots:
       default: 'Status text.'
@@ -23,6 +23,8 @@ A small label that shows the status of an item. Use it to tell statuses apart in
 ### Usage
 
 Choose `tone` from `neutral`, `info`, `success`, `warning`, and `danger`. Put only short status text inside; do not use it for counts or actions.
+
+`accent` fills the badge with the accent color. Use it for the one label that should stand out among its neighbors, such as a pinned or first-ranked item, not for a status. Like the rest of the accent color, keep it to a few small places on a screen.
 
 ### Accessibility
 

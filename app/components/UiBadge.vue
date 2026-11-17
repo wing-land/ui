@@ -4,7 +4,7 @@ import UiIcon from './UiIcon.vue'
 
 withDefaults(
   defineProps<{
-    tone?: 'neutral' | 'info' | 'success' | 'warning' | 'danger'
+    tone?: 'neutral' | 'accent' | 'info' | 'success' | 'warning' | 'danger'
     icon?: UiIconName
   }>(),
   { tone: 'neutral', icon: undefined },
@@ -41,6 +41,11 @@ defineSlots<{ default?: () => unknown }>()
     border-color: var(--color-line);
     background: var(--color-surface);
     color: var(--color-muted);
+  }
+
+  &--accent {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
   }
 
   @each $tone in info, success, warning, danger {

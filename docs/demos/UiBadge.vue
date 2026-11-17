@@ -4,6 +4,7 @@ import { UiBadge } from '@wing-land/ui'
 <template>
   <div class="demo">
     <UiBadge>Draft</UiBadge>
+    <UiBadge tone="accent">Pinned</UiBadge>
     <UiBadge tone="info">Shared</UiBadge>
     <UiBadge tone="success" icon="check">Active</UiBadge>
     <UiBadge tone="warning">Expires soon</UiBadge>
