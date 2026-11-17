@@ -45,6 +45,7 @@ export { default as UiPhotoAlbumViewer } from './app/components/UiPhotoAlbumView
 export { default as UiPopover } from './app/components/UiPopover.vue'
 export { default as UiPostDate } from './app/components/UiPostDate.vue'
 export { default as UiProfileIdentity } from './app/components/UiProfileIdentity.vue'
+export { default as UiProgress } from './app/components/UiProgress.vue'
 export { default as UiRadioGroup } from './app/components/UiRadioGroup.vue'
 export { default as UiSearchInput } from './app/components/UiSearchInput.vue'
 export { default as UiSelect } from './app/components/UiSelect.vue'

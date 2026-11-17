@@ -348,8 +348,8 @@ export const componentGroups: ComponentGroup[] = [
       {
         text: 'Loading & Empty',
         slug: 'loading-empty',
-        description: 'Loading, empty, and error states',
-        components: ['UiListStatus', 'UiEmptyState', 'UiSpinner', 'UiSkeleton'],
+        description: 'Loading, progress, empty, and error states',
+        components: ['UiListStatus', 'UiEmptyState', 'UiSpinner', 'UiProgress', 'UiSkeleton'],
       },
       {
         text: 'Toaster',

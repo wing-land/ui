@@ -22,6 +22,11 @@ api:
     props:
       label: 'Accessible name. When set, it is announced with `role="status"`. Omit it when nearby text already says something is loading.'
       size: 'Size. Numbers are in px.'
+  UiProgress:
+    props:
+      value: 'Progress from 0 to `max`. Omit it, or pass `null`, while the total is unknown; the bar then moves back and forth.'
+      max: 'Value that means done.'
+      label: 'Accessible name, such as what is being uploaded.'
   UiSkeleton:
     props:
       lines: 'Number of lines. The last line is shorter so the block reads as a paragraph.'
@@ -31,7 +36,7 @@ api:
 
 # Loading & Empty
 
-Components that show loading, empty, and error states.
+Components that show loading, progress, empty, and error states.
 
 ## UiListStatus
 
@@ -98,6 +103,28 @@ With `label`, it is announced with `role="status"`. When nearby text already say
 ### API
 
 <DocsApi name="UiSpinner" />
+
+## UiProgress
+
+A bar that shows how far a task such as an upload has got.
+
+<DocsDemo name="UiProgress" />
+
+### Code
+
+<<< ../demos/UiProgress.vue{vue}
+
+### Usage
+
+Pass the progress as `value` out of `max`. While the total is not known yet, leave `value` out to show a bar that moves back and forth. Put the file name or a percentage next to the bar as text when people need the exact figure. For waiting with no measurable progress, such as loading a list, use [UiSpinner](#uispinner) instead.
+
+### Accessibility
+
+Renders `role="progressbar"` with `label` as its name and the value in `aria-valuenow`, which is left out while the total is unknown. People who ask for reduced motion see a still bar.
+
+### API
+
+<DocsApi name="UiProgress" />
 
 ## UiSkeleton
 
