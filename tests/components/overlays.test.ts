@@ -7,6 +7,7 @@ import UiCombobox from '../../app/components/UiCombobox.vue'
 import UiDropdownMenu from '../../app/components/UiDropdownMenu.vue'
 import UiField from '../../app/components/UiField.vue'
 import UiPopover from '../../app/components/UiPopover.vue'
+import UiSuggestMenu from '../../app/components/UiSuggestMenu.vue'
 import UiTabs from '../../app/components/UiTabs.vue'
 import UiToaster from '../../app/components/UiToaster.vue'
 import UiToolbar from '../../app/components/UiToolbar.vue'
@@ -194,5 +195,61 @@ describe('UiCombobox', () => {
     await vi.waitFor(() =>
       expect((input.element() as HTMLInputElement).value).toBe('Weekend plans'),
     )
+  })
+})
+
+describe('UiSuggestMenu', () => {
+  const items = [
+    { type: 'label' as const, label: 'Notes' },
+    { value: 'design', label: 'Design', meta: '2 days ago', icon: 'link' as const },
+    { value: 'review', label: 'Review' },
+    { type: 'separator' as const },
+    { value: 'new', label: 'Link to "Plan" (new page)', tone: 'muted' as const },
+  ]
+
+  it('opens at the anchor without taking focus and marks the active option', async () => {
+    const input = document.createElement('input')
+    document.body.append(input)
+    input.focus()
+    const screen = await render(UiSuggestMenu, {
+      props: {
+        items,
+        label: 'Link targets',
+        anchor: input.getBoundingClientRect(),
+        open: true,
+        active: 'review',
+        id: 'targets',
+      },
+    })
+    const list = page.getByRole('listbox', { name: 'Link targets' })
+    await expect.element(list).toBeVisible()
+    expect(document.activeElement).toBe(input)
+    await expect
+      .element(page.getByRole('option', { name: 'Review' }))
+      .toHaveAttribute('aria-selected', 'true')
+    expect(document.getElementById('targets-option-2')?.textContent).toContain('Review')
+    expect(screen.container).toBeTruthy()
+    await expectAccessible(list.element() as HTMLElement)
+    input.remove()
+  })
+
+  it('reports a clicked option and keeps focus where it was', async () => {
+    const input = document.createElement('input')
+    document.body.append(input)
+    input.focus()
+    const onSelect = vi.fn()
+    await render(UiSuggestMenu, {
+      props: {
+        items,
+        label: 'Link targets',
+        anchor: input.getBoundingClientRect(),
+        open: true,
+        onSelect,
+      },
+    })
+    await page.getByRole('option', { name: /^Design/ }).click()
+    expect(onSelect).toHaveBeenCalledWith('design')
+    expect(document.activeElement).toBe(input)
+    input.remove()
   })
 })

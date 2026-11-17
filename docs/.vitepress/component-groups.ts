@@ -309,6 +309,12 @@ export const componentGroups: ComponentGroup[] = [
         components: ['UiDropdownMenu'],
       },
       {
+        text: 'Suggest Menu',
+        slug: 'suggest-menu',
+        description: 'Suggestions that open at the caret while typing',
+        components: ['UiSuggestMenu'],
+      },
+      {
         text: 'Popover',
         slug: 'popover',
         description: 'Panel that floats next to its trigger',

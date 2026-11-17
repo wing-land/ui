@@ -121,6 +121,22 @@ export type UiMenuItem =
   | { type: 'separator' }
   | { type: 'label'; label: string }
 
+export type UiSuggestItem =
+  | {
+      type?: 'item'
+      /** Passed to the `select` event and used as the `active` value. */
+      value: string
+      label: string
+      /** Secondary text on the right, such as an update date or a username. */
+      meta?: string
+      icon?: UiIconName
+      /** Shows an avatar instead of an icon. */
+      avatar?: { name: string; src?: string }
+      tone?: 'neutral' | 'muted'
+    }
+  | { type: 'separator' }
+  | { type: 'label'; label: string }
+
 export interface UiTabItem {
   value: string
   label: string
