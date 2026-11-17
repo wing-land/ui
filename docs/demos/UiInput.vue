@@ -2,11 +2,13 @@
 import { shallowRef } from 'vue'
 import { UiField, UiInput } from '@wing-land/ui'
 const title = shallowRef('Weekly notes')
+const pageTitle = shallowRef('Room ownership')
 const expires = shallowRef('')
 const filter = shallowRef('')
 </script>
 <template>
   <div class="demo">
+    <UiInput v-model="pageTitle" variant="plain" size="title" aria-label="Page title" />
     <UiField label="Title">
       <UiInput v-model="title" :maxlength="100" show-count />
     </UiField>

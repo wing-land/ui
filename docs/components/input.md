@@ -4,7 +4,8 @@ api:
     props:
       id: '`id` of the input. Inside UiField, the UiField value is used.'
       type: 'Input type. The value is a string even for `number`.'
-      size: '`sm` is 32px tall. Use it only where controls are packed together, such as toolbars.'
+      size: '`sm` is 32px tall. Use it only where controls are packed together, such as toolbars. `title` matches the size of a page heading.'
+      variant: '`plain` shows the box only while the input is hovered or focused, so the text reads as part of the page.'
       icon: 'Icon placed at the start.'
       required: 'Makes the input required. Inside UiField, the UiField value is used.'
       disabled: 'Disables the input. Inside UiField, the UiField value is used.'
@@ -73,6 +74,8 @@ A single-line text input. Inside UiField, it is tied to the label and errors aut
 ### Usage
 
 Attributes such as `placeholder`, `autocomplete`, and `name` go to the `<input>` element, while `class` and `style` go to the outer element. For dates and times, use the native input types (`date`, `datetime-local`, `time`). Do not use a placeholder in place of a label.
+
+To edit a page title in place, use `variant="plain"` with `size="title"`. The title reads as a heading until it is hovered or focused, and then shows the usual box and focus ring. Give it an accessible name with `aria-label` or a visually hidden label, because no visible label sits next to it.
 
 ### Accessibility
 

@@ -20,8 +20,10 @@ const props = withDefaults(
       | 'date'
       | 'datetime-local'
       | 'time'
-    /** `sm` is 32px for toolbars and other dense groups. */
-    size?: 'md' | 'sm'
+    /** `sm` is 32px for toolbars and other dense groups. `title` matches a page heading. */
+    size?: 'md' | 'sm' | 'title'
+    /** `plain` hides the box until the input is hovered or focused, for editing text in place. */
+    variant?: 'boxed' | 'plain'
     icon?: UiIconName
     required?: boolean
     disabled?: boolean
@@ -35,6 +37,7 @@ const props = withDefaults(
     id: undefined,
     type: 'text',
     size: 'md',
+    variant: 'boxed',
     icon: undefined,
     required: undefined,
     disabled: undefined,
@@ -70,6 +73,8 @@ defineExpose({ focus: () => input.value?.focus(), select: () => input.value?.sel
         'is-invalid': control.invalid.value,
         'is-disabled': control.disabled.value,
         'is-dense': size === 'sm',
+        'is-title': size === 'title',
+        'is-plain': variant === 'plain',
       }"
     >
       <UiIcon v-if="icon" class="ui-input__icon" :name="icon" />
@@ -106,6 +111,30 @@ defineExpose({ focus: () => input.value?.focus(), select: () => input.value?.sel
 
 .ui-input__box {
   @include control.box;
+
+  &.is-plain {
+    border-color: transparent;
+    background: transparent;
+
+    &:hover {
+      border-color: var(--color-line);
+    }
+
+    &:focus-within {
+      border-color: var(--color-accent);
+      background: var(--color-field);
+    }
+
+    &.is-invalid {
+      border-color: var(--color-danger);
+    }
+  }
+
+  &.is-title {
+    padding-inline: var(--space-2);
+    font-size: clamp(26px, 3vw, 32px);
+    font-weight: 600;
+  }
 }
 .ui-input__control {
   @include control.native;
