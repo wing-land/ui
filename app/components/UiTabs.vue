@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useSlots } from 'vue'
 import { TabsContent, TabsList, TabsRoot, TabsTrigger } from 'reka-ui'
 import type { UiTabItem } from '../lib/types'
 import UiIcon from './UiIcon.vue'
@@ -19,8 +19,15 @@ const props = withDefaults(
 )
 type PanelSlot = (props: { item: UiTabItem }) => unknown
 // Each panel can also use a slot named after its item's `value`.
-defineSlots<{ panel?: PanelSlot; [value: string]: PanelSlot | undefined }>()
+defineSlots<{
+  panel?: PanelSlot
+  /** Controls at the end of a horizontal tab row, such as a search box. */
+  end?: () => unknown
+  [value: string]: PanelSlot | (() => unknown) | undefined
+}>()
 const model = defineModel<string>()
+const slots = useSlots()
+const hasEnd = computed(() => Boolean(slots.end) && props.orientation === 'horizontal')
 const value = computed(() => model.value ?? props.items[0]?.value)
 </script>
 
@@ -34,18 +41,21 @@ const value = computed(() => model.value ?? props.items[0]?.value)
     :unmount-on-hide="!keepMounted"
     @update:model-value="model = String($event)"
   >
-    <TabsList class="ui-tabs__list" :aria-label="label">
-      <TabsTrigger
-        v-for="item in items"
-        :key="item.value"
-        class="ui-tabs__trigger"
-        :value="item.value"
-        :disabled="item.disabled"
-      >
-        <UiIcon v-if="item.icon" :name="item.icon" />{{ item.label
-        }}<span v-if="item.badge !== undefined" class="ui-tabs__badge">{{ item.badge }}</span>
-      </TabsTrigger>
-    </TabsList>
+    <div class="ui-tabs__bar" :class="{ 'has-end': hasEnd }">
+      <TabsList class="ui-tabs__list" :aria-label="label">
+        <TabsTrigger
+          v-for="item in items"
+          :key="item.value"
+          class="ui-tabs__trigger"
+          :value="item.value"
+          :disabled="item.disabled"
+        >
+          <UiIcon v-if="item.icon" :name="item.icon" />{{ item.label
+          }}<span v-if="item.badge !== undefined" class="ui-tabs__badge">{{ item.badge }}</span>
+        </TabsTrigger>
+      </TabsList>
+      <div v-if="hasEnd" class="ui-tabs__end"><slot name="end" /></div>
+    </div>
     <TabsContent v-for="item in items" :key="item.value" class="ui-tabs__panel" :value="item.value">
       <slot :name="item.value" :item="item"><slot name="panel" :item="item" /></slot>
     </TabsContent>
@@ -74,6 +84,33 @@ const value = computed(() => model.value ?? props.items[0]?.value)
     border-bottom: 0;
     border-inline-end: 1px solid var(--color-line);
   }
+}
+.ui-tabs__bar {
+  display: contents;
+}
+.ui-tabs__bar.has-end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-2) var(--space-6);
+  border-bottom: 1px solid var(--color-line);
+
+  // The row draws the line, so the list must not clip the active tab's border against it.
+  & .ui-tabs__list {
+    border-bottom: 0;
+  }
+
+  & .ui-tabs__trigger {
+    margin-bottom: 0;
+  }
+}
+.ui-tabs__end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-inline-start: auto;
+  padding-bottom: var(--space-2);
 }
 .ui-tabs__trigger {
   display: inline-flex;
