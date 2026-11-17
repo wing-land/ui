@@ -16,6 +16,18 @@ describe('UiButton', () => {
     await expect.element(button).toHaveAttribute('type', 'button')
   })
 
+  it('lines up icon and text at the start of a full-width button', async () => {
+    const screen = await render(UiButton, {
+      props: { variant: 'ghost', block: true, align: 'start', icon: 'copy' },
+      slots: { default: () => 'Copy link' },
+    })
+    const button = screen.getByRole('button', { name: 'Copy link' }).element() as HTMLElement
+    const icon = button.querySelector('svg')!
+
+    expect(getComputedStyle(button).justifyContent).toBe('flex-start')
+    expect(icon.getBoundingClientRect().left - button.getBoundingClientRect().left).toBeLessThan(24)
+  })
+
   it('names icon-only buttons with label', async () => {
     const screen = await render(UiButton, { props: { icon: 'search', label: 'Search' } })
     await expect

@@ -11,6 +11,7 @@ api:
       label: 'Accessible name. Required for icon-only buttons.'
       loading: 'Puts the button in a busy state. It keeps focus but ignores presses, and gets `aria-busy` and `aria-disabled`.'
       block: 'Stretches the button to the full width of its parent.'
+      align: 'Alignment of the icon and text. `start` lines them up at the start, which reads better for stacked full-width actions.'
       disabled: 'Disables the button. Renders a button even when `href` is set.'
       href: 'Renders the button as a link. Use it for navigation, not for actions.'
       target: '`target` of the link.'
@@ -34,6 +35,8 @@ A button that performs an action. It comes in three styles, `outline`, `solid`, 
 ### Usage
 
 Use the thin-bordered `outline` style by default, and the `solid` style, filled with the accent color, for the main action you want to emphasize. Anything that only moves to another page should be a link with `href`; actions such as submitting or deleting should be buttons. While an async action runs, set `loading` to show a spinner in place of the icon.
+
+To stack actions in a side panel, such as "Copy link" and "Export", combine `variant="ghost"`, `block`, and `align="start"`. The icons and labels then line up down the left edge like a menu.
 
 ### Accessibility
 

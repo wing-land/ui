@@ -19,6 +19,8 @@ const props = withDefaults(
     loading?: boolean
     disabled?: boolean
     block?: boolean
+    /** `start` lines the icon and text up at the start, for stacked full-width actions. */
+    align?: 'center' | 'start'
     /** Renders a link styled as a button. Use it for navigation, not for actions. */
     href?: string
     target?: string
@@ -31,6 +33,7 @@ const props = withDefaults(
     size: 'md',
     icon: undefined,
     iconPosition: 'start',
+    align: 'center',
     label: undefined,
     href: undefined,
     target: undefined,
@@ -49,6 +52,7 @@ const classes = computed(() => [
     'ui-button--danger': props.tone === 'danger',
     'ui-button--icon-only': iconOnly.value,
     'ui-button--block': props.block,
+    'ui-button--align-start': props.align === 'start',
     'ui-button--loading': props.loading,
   },
 ])
@@ -194,6 +198,10 @@ function guard(event: MouseEvent) {
 .ui-button--block {
   display: flex;
   width: 100%;
+}
+.ui-button--align-start {
+  justify-content: flex-start;
+  text-align: start;
 }
 .ui-button--loading {
   cursor: progress;

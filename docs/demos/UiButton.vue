@@ -26,6 +26,10 @@ function save() {
       }}</UiButton>
       <UiButton disabled>Disabled</UiButton>
     </div>
+    <div class="stack" role="group" aria-label="Note actions">
+      <UiButton variant="ghost" block align="start" icon="copy">Copy link</UiButton>
+      <UiButton variant="ghost" block align="start" icon="external">Open in a new tab</UiButton>
+    </div>
     <div class="row" role="toolbar" aria-label="Formatting">
       <UiButton size="sm" variant="ghost" icon="copy" label="Copy" />
       <UiButton size="sm">Small button</UiButton>
@@ -38,6 +42,10 @@ function save() {
   display: grid;
   gap: 16px;
   padding: 1rem 0;
+}
+.stack {
+  display: grid;
+  max-width: 240px;
 }
 .row {
   display: flex;
